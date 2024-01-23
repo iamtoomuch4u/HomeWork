@@ -1,0 +1,166 @@
+import org.code.theater.*;
+import org.code.media.*;
+
+public class ImageEditor extends ImagePlus {
+
+  /*
+   * Calls the superclass constructor to initialize pixels
+   */
+  public ImageEditor(String filename) {
+    //super(filename);
+  //this.filename = filename;
+  }
+
+  
+
+
+    /*
+   * Mirrors the image vertically by
+   * setting the color of the Pixel object on the
+   * left side of the image to the color of the Pixel 
+   * object on the right side.
+   */
+    public void mirrorVertical() {
+      Pixel[][] mirror = super.getImagePixels();
+      int h = getWidth()/2;
+    
+      for(int row = 0; row < super.getHeight(); row++){
+      
+        for (int col = 0; col < super.getWidth()/2; col++){
+          Pixel rightPixel = mirror[row][h + col];
+          Color rightColor = rightPixel.getColor();
+          Pixel leftPixel = mirror[row][h - col];
+          leftPixel.setColor(rightColor);
+        }
+      }
+    }
+  
+  public void zeroRed(String filename) {
+    super(filename);
+    
+    Pixel[][] noRed = super.getImagePixels();
+    for(int row = 0; row < super.getHeight(); row++){
+      for (int col = 0; col < super.getWidth(); col++){
+        noRed[row][col] = super.getPixel(col, row);
+        noRed[row][col].setRed(0);
+      }
+    }
+  }
+  
+  public void zeroGreen(String filename) {
+    super(filename);
+    
+    Pixel[][] noGreen = super.getImagePixels();
+    for(int row = 0; row < super.getHeight(); row++){
+      for (int col = 0; col < super.getWidth(); col++){
+        noGreen[row][col] = super.getPixel(col, row);
+        noGreen[row][col].setGreen(0);
+      }
+    }
+  }
+  
+  public void zeroBlue(String filename) {
+    super(filename);
+    
+    Pixel[][] noBlue = super.getImagePixels();
+    for(int row = 0; row < super.getHeight(); row++){
+      for (int col = 0; col < super.getWidth(); col++){
+        noBlue[row][col] = super.getPixel(col, row);
+        noBlue[row][col].setBlue(0);
+      }
+    }
+  }
+  
+  // inverts Red
+  public void invertRed(String filename) {
+    super(filename);
+    
+    Pixel[][] reverseRed = super.getImagePixels();
+    for(int row = 0; row < super.getHeight(); row++){
+      for (int col = 0; col < super.getWidth(); col++){
+        reverseRed[row][col] = super.getPixel(col, row);
+        reverseRed[row][col].setRed(225 - reverseRed[row][col].getRed());
+      }
+    }
+  }
+  
+  // inverts Green
+  public void invertGreen(String filename) {
+    super(filename);
+    
+    Pixel[][] reverseGreen = super.getImagePixels();
+    for(int row = 0; row < super.getHeight(); row++){
+      for (int col = 0; col < super.getWidth(); col++){
+        reverseGreen[row][col] = super.getPixel(col, row);
+        reverseGreen[row][col].setGreen(225 - reverseGreen[row][col].getGreen());
+      }
+    }
+  }
+  
+  // inverts Blue
+  public void invertBlue(String filename) {
+    super(filename);
+    
+    Pixel[][] reverseBlue = super.getImagePixels();
+    for(int row = 0; row < super.getHeight(); row++){
+      for (int col = 0; col < super.getWidth(); col++){
+        reverseBlue[row][col] = super.getPixel(col, row);
+        reverseBlue[row][col].setGreen(225 - reverseBlue[row][col].getBlue());
+      }
+    }
+  }
+  
+  /*
+   * Inverts the colors in the image by setting the red,
+   * green, and blue color values of each Pixel object to
+   * the result of 255 minus their current values
+   */
+  public void invertAll(String filename) {
+    super(filename);
+    Pixel[][] reverse = super.getImagePixels();
+    for(int row = 0; row < super.getHeight(); row++){
+      for (int col = 0; col < super.getWidth(); col++){
+        reverse[row][col] = super.getPixel(col, row);
+        reverse[row][col].setGreen(255 - reverse[row][col].getGreen());
+        reverse[row][col].setRed(255 - reverse[row][col].getRed());
+        reverse[row][col].setBlue(255 - reverse[row][col].getBlue());
+      }
+    }
+  }
+
+
+  public void randomInvert(String filename){
+    super(filename);
+    int i = (int)(Math.random()*3);
+    if(i == 0){
+      Pixel[][] reverseRed = super.getImagePixels();
+      for(int row = 0; row < super.getHeight(); row++){
+        for (int col = 0; col < super.getWidth(); col++){
+          reverseRed[row][col] = super.getPixel(col, row);
+          reverseRed[row][col].setRed(225 - reverseRed[row][col].getRed());
+        }
+        
+      }
+      
+    }
+    else if(i == 1){
+      Pixel[][] reverseGreen = super.getImagePixels();
+      for(int row = 0; row < super.getHeight(); row++){
+        for (int col = 0; col < super.getWidth(); col++){
+          reverseGreen[row][col] = super.getPixel(col, row);
+          reverseGreen[row][col].setGreen(225 - reverseGreen[row][col].getGreen());
+        }
+      }
+    }
+      
+    else if(i == 2){
+      Pixel[][] reverseBlue = super.getImagePixels();
+      for(int row = 0; row < super.getHeight(); row++){
+        for (int col = 0; col < super.getWidth(); col++){
+          reverseBlue[row][col] = super.getPixel(col, row);
+          reverseBlue[row][col].setGreen(225 - reverseBlue[row][col].getBlue());
+        }
+      }
+    }
+  }
+}
